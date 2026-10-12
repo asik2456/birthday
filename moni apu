@@ -417,7 +417,7 @@
       <!-- Letter Format -->
       <div class="letter-parchment">
         <div class="letter-salutation" contenteditable="true" id="salutation">
-          আমার প্রাণপ্রিয় আপু,
+          আমার প্রাণপ্রিয় মনি আপু,
         </div>
         
         <div class="letter-body" contenteditable="true" id="letterMessage">
@@ -435,7 +435,7 @@
           সারাজীবন ভালোবাসাসহ তোমার আদরের,
         </div>
         <div class="sender-name" contenteditable="true" id="senderName">
-          তোমার ছোট ভাই 💖
+          তোমার ছোট ভাই মাহি 💖
         </div>
       </div>
 
