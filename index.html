@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>শুভ জন্মদিন প্রিয় আপু! 🎂💖</title>
+  
+  <!-- Google Fonts & Canvas Confetti -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #ff5e8e;
+      --gold: #f9ca24;
+      --bg-gradient: linear-gradient(135deg, #1f0d3d, #633974, #b03a68, #e06974);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --text-dark: #2d3436;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+      background: var(--bg-gradient);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+      overflow-x: hidden;
+      perspective: 1200px;
+      color: var(--text-dark);
+      padding: 20px 10px 60px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating balloons & icons */
+    .floating-balloon {
+      position: fixed;
+      bottom: -100px;
+      font-size: 2.2rem;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(-120vh) rotate(35deg); opacity: 0; }
+    }
+
+    /* Live status badge */
+    .status-badge {
+      max-width: 450px;
+      margin: 0 auto 15px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 30px;
+      padding: 8px 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: #2ed573;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #2ed573;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+
+    /* 3D Card Container */
+    .card-container {
+      max-width: 800px;
+      margin: 0 auto;
+      perspective: 1500px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card-3d {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 40px 35px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3),
+                  0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      animation: entrancePop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes entrancePop {
+      0% { opacity: 0; transform: scale(0.85) translateY(50px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Ribbon badge */
+    .ribbon {
+      position: absolute;
+      top: 25px;
+      right: -45px;
+      background: linear-gradient(45deg, #ff3366, #ff758c);
+      color: #fff;
+      padding: 6px 45px;
+      transform: rotate(45deg);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-transform: uppercase;
+    }
+
+    /* Header */
+    .header-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sister-subtitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ff3366;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .main-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.6rem;
+      color: #c2185b;
+      line-height: 1.2;
+      text-shadow: 2px 2px 4px rgba(194, 24, 91, 0.15);
+      outline: none;
+    }
+
+    /* 3D Birthday Cake */
+    .cake-wrapper {
+      height: 230px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      margin: 15px 0 30px;
+    }
+
+    .cake-plate {
+      width: 250px;
+      height: 18px;
+      background: #e2e8f0;
+      border-radius: 50%;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .cake-bottom-tier {
+      width: 210px;
+      height: 65px;
+      background: linear-gradient(to right, #f8a5c2, #f78fb3, #f8a5c2);
+      border-radius: 12px 12px 6px 6px;
+      position: relative;
+      box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08);
+      margin-bottom: -4px;
+    }
+
+    .cake-top-tier {
+      width: 150px;
+      height: 55px;
+      background: linear-gradient(to right, #fff0f5, #ffeaa7, #fff0f5);
+      border-radius: 12px 12px 6px 6px;
+      position: relative;
+      margin-bottom: -4px;
+      box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .frosting {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 14px;
+      background: #ffffff;
+      border-radius: 10px 10px 14px 14px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+    }
+
+    /* Candle */
+    .candle {
+      width: 12px;
+      height: 48px;
+      background: repeating-linear-gradient(45deg, #74b9ff, #74b9ff 6px, #ffffff 6px, #ffffff 12px);
+      border-radius: 6px 6px 2px 2px;
+      position: relative;
+      margin-bottom: -2px;
+      z-index: 5;
+    }
+
+    .candle-flame {
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(circle, #ffeaa7 20%, #fdcb6e 50%, #e17055 90%);
+      border-radius: 50% 50% 35% 35%;
+      position: absolute;
+      top: -24px;
+      left: -2px;
+      box-shadow: 0 0 16px 5px #ffeaa7;
+      animation: flicker 1s infinite alternate;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
+      50% { transform: scale(1.15, 0.95) rotate(3deg); opacity: 1; }
+      100% { transform: scale(0.95, 1.05) rotate(-1deg); opacity: 0.85; }
+    }
+
+    .flame-extinguished {
+      opacity: 0 !important;
+      transform: scale(0) !important;
+      animation: none !important;
+    }
+
+    .smoke {
+      position: absolute;
+      top: -24px;
+      left: 2px;
+      width: 8px;
+      height: 8px;
+      background: rgba(160, 160, 160, 0.8);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .puff-smoke {
+      animation: smokeRise 1.5s forwards;
+    }
+
+    @keyframes smokeRise {
+      0% { transform: scale(0.6) translateY(0); opacity: 0.8; }
+      50% { opacity: 0.6; }
+      100% { transform: scale(3.5) translateY(-50px); opacity: 0; }
+    }
+
+    /* Date and Age */
+    .meta-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .info-card {
+      background: #fff5f8;
+      border: 2px dashed #ffb8d2;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #d63031;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2d3436;
+      outline: none;
+    }
+
+    /* Letter for sister */
+    .letter-parchment {
+      background: #fffdfa;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03), 0 5px 20px rgba(0, 0, 0, 0.05);
+      border-left: 5px solid #ff7597;
+      margin-bottom: 25px;
+    }
+
+    .letter-salutation {
+      font-family: 'Dancing Script', 'Hind Siliguri', cursive;
+      font-size: 2rem;
+      color: #d63031;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .letter-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #4a4a4a;
+      outline: none;
+      white-space: pre-wrap;
+    }
+
+    /* Signature */
+    .signature-area {
+      text-align: right;
+      padding-top: 15px;
+      border-top: 1px solid #f1f2f6;
+    }
+
+    .signature-prefix {
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    .sender-name {
+      font-family: 'Dancing Script', 'Hind Siliguri', cursive;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #e84393;
+      outline: none;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .main-title { font-size: 2.6rem; }
+      .meta-cards-row { grid-template-columns: 1fr; }
+      .card-3d { padding: 25px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating background balloons -->
+  <div id="balloonsContainer"></div>
+
+  <!-- Status Notification -->
+  <div class="status-badge">
+    <div class="pulse-dot"></div>
+    <span id="celebrationStatus">🎂 উৎসব শুরু হয়েছে... মিউজিক বাজছে! 🎵</span>
+  </div>
+
+  <!-- 3D Gift Card -->
+  <div class="card-container" id="cardContainer">
+    <div class="card-3d" id="card">
+      <div class="ribbon">Beloved Sister</div>
+
+      <!-- Header -->
+      <div class="header-section">
+        <div class="sister-subtitle">Happy Special Day</div>
+        <h1 class="main-title" contenteditable="true" id="recipientTitle">
+          Happy Birthday, Sweet Sister! 🌸
+        </h1>
+      </div>
+
+      <!-- Cake with Auto-Blow Candle -->
+      <div class="cake-wrapper">
+        <div class="candle">
+          <div class="candle-flame" id="flame"></div>
+          <div class="smoke" id="smoke"></div>
+        </div>
+        <div class="cake-top-tier">
+          <div class="frosting"></div>
+        </div>
+        <div class="cake-bottom-tier">
+          <div class="frosting"></div>
+        </div>
+        <div class="cake-plate"></div>
+      </div>
+
+      <!-- Date & Age -->
+      <div class="meta-cards-row">
+        <div class="info-card">
+          <span class="info-label">📅 Birthday Date</span>
+          <div class="info-value" contenteditable="true" id="birthdayDate">
+            October 13th
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="info-label">🎂 Celebrating</span>
+          <div class="info-value" contenteditable="true" id="ageYears">
+            21 Fabulous Years Old ✨
+          </div>
+        </div>
+      </div>
+
+      <!-- Letter Format -->
+      <div class="letter-parchment">
+        <div class="letter-salutation" contenteditable="true" id="salutation">
+          আমার প্রাণপ্রিয় আপু,
+        </div>
+        
+        <div class="letter-body" contenteditable="true" id="letterMessage">
+আমার জীবনের সুন্দর উপহার তুমি। ছোটবেলা থেকে আগলে রাখা,আমাকে সাপোর্ট করা আর প্রতিটি মুহূর্তে পথ দেখানো—তুমি শুধু আমার বড় বোন নও, আমার ভালো বন্ধু।
+
+তোমার এই বিশেষ জন্মদিনে দোয়া করি, তোমার আগামী প্রতিটি দিন আনন্দ, সুস্বাস্থ্য এবং অফুরন্ত ভালোবাসায় ভরে উঠুক। তোমার মুখের এই মিষ্টি হাসি যেন চিরকাল এমন উজ্জ্বল থাকে! 💐🥂
+
+সব স্বপ্ন সত্যি হোক তোমার! শুভ জন্মদিন আপু! 🌟
+        </div>
+      </div>
+
+      <!-- Sender Signature -->
+      <div class="signature-area">
+        <div class="signature-prefix" contenteditable="true" id="signaturePrefix">
+          সারাজীবন ভালোবাসাসহ তোমার আদরের,
+        </div>
+        <div class="sender-name" contenteditable="true" id="senderName">
+          তোমার ছোট ভাই 💖
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* 1. 3D Tilt Effect on Mouse/Touch */
+    const card = document.getElementById('card');
+    const container = document.getElementById('cardContainer');
+
+    window.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+      card.style.transform = `rotateX(${(-y / 25).toFixed(2)}deg) rotateY(${(x / 25).toFixed(2)}deg)`;
+    });
+
+    /* 2. Web Audio API - Happy Birthday Melody (Continuous loop) */
+    let audioCtx = null;
+    let isMusicStarted = false;
+
+    const birthdayMelody = [
+      { f: 261.6, d: 0.35 }, { f: 261.6, d: 0.25 }, { f: 293.7, d: 0.6 }, { f: 261.6, d: 0.6 },
+      { f: 349.2, d: 0.6 },  { f: 329.6, d: 1.1 },
+
+      { f: 261.6, d: 0.35 }, { f: 261.6, d: 0.25 }, { f: 293.7, d: 0.6 }, { f: 261.6, d: 0.6 },
+      { f: 392.0, d: 0.6 },  { f: 349.2, d: 1.1 },
+
+      { f: 261.6, d: 0.35 }, { f: 261.6, d: 0.25 }, { f: 523.3, d: 0.6 }, { f: 440.0, d: 0.6 },
+      { f: 349.2, d: 0.6 },  { f: 329.6, d: 0.6 },  { f: 293.7, d: 0.9 },
+
+      { f: 466.2, d: 0.35 }, { f: 466.2, d: 0.25 }, { f: 440.0, d: 0.6 }, { f: 349.2, d: 0.6 },
+      { f: 392.0, d: 0.6 },  { f: 349.2, d: 1.3 }
+    ];
+
+    function playTone(freq, duration, start) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'triangle'; // Sweet chiming tone
+      osc.frequency.setValueAtTime(freq, start);
+
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.exponentialRampToValueAtTime(0.35, start + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(start);
+      osc.stop(start + duration);
+    }
+
+    function playLoopingMelody() {
+      if (!audioCtx) return;
+      let now = audioCtx.currentTime + 0.1;
+      birthdayMelody.forEach(note => {
+        playTone(note.f, note.d, now);
+        now += note.d + 0.08;
+      });
+
+      const totalMelodyDuration = (now - audioCtx.currentTime) * 1000;
+      setTimeout(playLoopingMelody, totalMelodyDuration + 1000);
+    }
+
+    function initAudio() {
+      if (isMusicStarted) return;
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        playLoopingMelody();
+        isMusicStarted = true;
+      } catch (e) {
+        console.log("Audio waiting for first user touch due to browser policy.");
+      }
+    }
+
+    // Browsers block autoplay until the screen is touched/scrolled.
+    // This unlocks sound silently on the very first micro-gesture anywhere:
+    ['click', 'touchstart', 'mousemove', 'scroll', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, () => {
+        if (!isMusicStarted) initAudio();
+      }, { once: true });
+    });
+
+    /* 3. Automatic Confetti Bursts */
+    function grandConfettiBurst() {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+      confetti({
+        particleCount: 70,
+        angle: 60,
+        spread: 60,
+        origin: { x: 0, y: 0.7 }
+      });
+      confetti({
+        particleCount: 70,
+        angle: 120,
+        spread: 60,
+        origin: { x: 1, y: 0.7 }
+      });
+    }
+
+    function gentleConfetti() {
+      confetti({
+        particleCount: 25,
+        spread: 50,
+        origin: { x: Math.random(), y: 0.2 }
+      });
+    }
+
+    /* 4. Automatic Candle Blow Out Sequence */
+    function autoBlowCandle() {
+      const flame = document.getElementById('flame');
+      const smoke = document.getElementById('smoke');
+      const statusText = document.getElementById('celebrationStatus');
+
+      // Extinguish candle
+      flame.classList.add('flame-extinguished');
+      smoke.classList.add('puff-smoke');
+      
+      statusText.innerHTML = "✨ উইশ পূরণ হলো! মোমবাতি নিভল... হ্যাপি বার্থডে! 💖";
+
+      // Huge celebratory explosions!
+      grandConfettiBurst();
+      setTimeout(grandConfettiBurst, 600);
+      setTimeout(grandConfettiBurst, 1200);
+    }
+
+    /* 5. Floating background balloons */
+    const icons = ['🎈', '💖', '✨', '🌸', '🎁', '🍰', '⭐'];
+    function makeBalloon() {
+      const b = document.createElement('div');
+      b.className = 'floating-balloon';
+      b.innerText = icons[Math.floor(Math.random() * icons.length)];
+      b.style.left = (Math.random() * 92) + 'vw';
+      b.style.animationDuration = (6 + Math.random() * 5) + 's';
+      b.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+      document.getElementById('balloonsContainer').appendChild(b);
+      setTimeout(() => b.remove(), 11000);
+    }
+    setInterval(makeBalloon, 800);
+
+    /* 6. The Master Auto-Sequence on Page Load */
+    window.addEventListener('load', () => {
+      // 1. Try to start audio immediately
+      initAudio();
+
+      // 2. Immediate welcome confetti
+      grandConfettiBurst();
+
+      // 3. Status updates & Auto blow candle after 3 seconds
+      const statusText = document.getElementById('celebrationStatus');
+      
+      setTimeout(() => {
+        statusText.innerHTML = "🕯️ আপুর জন্য উইশ করা হচ্ছে...";
+      }, 1500);
+
+      setTimeout(() => {
+        autoBlowCandle();
+      }, 3200);
+
+      // 4. Keep periodic confetti going indefinitely
+      setInterval(gentleConfetti, 4000);
+    });
+
+    /* 7. Auto-save any manual edits (names, text, etc.) */
+    const editableFields = [
+      'recipientTitle', 'birthdayDate', 'ageYears', 
+      'salutation', 'letterMessage', 'signaturePrefix', 'senderName'
+    ];
+
+    editableFields.forEach(id => {
+      const saved = localStorage.getItem('sister_bday_' + id);
+      if (saved) document.getElementById(id).innerHTML = saved;
+
+      document.getElementById(id).addEventListener('input', () => {
+        localStorage.setItem('sister_bday_' + id, document.getElementById(id).innerHTML);
+      });
+    });
+  </script>
+</body>
+</html>
