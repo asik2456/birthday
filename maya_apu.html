@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শুভ জন্মদিন! 🎂 Happy Birthday My Love</title>
+    
+    <!-- গুগল ফন্ট: বাংলা ও স্টাইলিশ ফন্ট -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           ১. সিএসএস ডিজাইন ও ব্যাকগ্রাউন্ড
+           ======================================================== */
+        :root {
+            --primary: #ff1e56;
+            --gold: #ffd166;
+            --bg-gradient: linear-gradient(135deg, #1b001a 0%, #3d0038 35%, #7a003c 70%, #ff0055 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* কনফেটি ক্যানভাস */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* ভাসমান বেলুন, কেক ও ভালোবাসার ইমোজি */
+        .floating-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -60px;
+            animation: floatUpAnim 11s linear infinite;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+        }
+
+        @keyframes floatUpAnim {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-115vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* মিউজিক কন্ট্রোলার বাটন (উপরে ডানে) */
+        .music-controller {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            padding: 8px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            font-size: 0.95rem;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .music-controller:hover {
+            transform: scale(1.05);
+            background: rgba(255, 30, 86, 0.4);
+        }
+
+        .music-disk {
+            display: inline-block;
+            font-size: 1.3rem;
+            animation: diskSpin 3s linear infinite;
+        }
+
+        @keyframes diskSpin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-controller.paused .music-disk {
+            animation-play-state: paused;
+        }
+
+        /* স্টার্ট স্ক্রিন ওভারলে */
+        .touch-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 0, 15, 0.93);
+            backdrop-filter: blur(14px);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.6s ease, visibility 0.6s;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .touch-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .gift-icon {
+            font-size: 5.5rem;
+            animation: giftBounce 1.4s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 25px #ff1e56);
+        }
+
+        @keyframes giftBounce {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-20px) rotate(-6deg) scale(1.1); }
+            100% { transform: translateY(0) rotate(6deg) scale(1); }
+        }
+
+        .touch-text {
+            margin-top: 22px;
+            font-size: 1.6rem;
+            color: #ffd166;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.5);
+        }
+
+        /* মেইন কন্টেইনার */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 660px;
+            padding: 30px 18px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* কেক ও মোমবাতি এরিয়া */
+        .cake-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 22px;
+            cursor: pointer;
+        }
+
+        .candles-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: -5px;
+            z-index: 3;
+        }
+
+        .candle {
+            width: 12px;
+            height: 42px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff1e56 5px, #ff1e56 10px);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .wick {
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6px;
+            background: #222;
+        }
+
+        .flame {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(ellipse at bottom, #fff 15%, #ffd166 45%, #ff1e56 90%);
+            border-radius: 50% 50% 25% 25%;
+            box-shadow: 0 0 15px #ffd166, 0 0 35px #ff1e56;
+            animation: flameFlicker 0.6s infinite alternate ease-in-out;
+            transition: all 0.5s ease;
+        }
+
+        .flame.blown {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px) scale(0.2);
+            filter: blur(4px);
+        }
+
+        @keyframes flameFlicker {
+            0% { transform: translateX(-50%) rotate(-3deg) scale(1); }
+            100% { transform: translateX(-50%) rotate(3deg) scale(1.15); }
+        }
+
+        /* লাল গোলাপ ও হার্ট কেক */
+        .cake-svg {
+            width: 160px;
+            height: auto;
+            filter: drop-shadow(0 15px 30px rgba(255, 30, 86, 0.5));
+            animation: cakeBounce 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes cakeBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-7px); }
+        }
+
+        .hint-badge {
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #ffd166;
+            border: 1px dashed #ffd166;
+            animation: pulseHint 1.8s infinite;
+        }
+
+        @keyframes pulseHint {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.96); }
+        }
+
+        /* ========================================================
+           ২. বার্থডে চিঠি কার্ড (THE BIRTHDAY LETTER)
+           ======================================================== */
+        .letter-card {
+            background: rgba(255, 255, 255, 0.96);
+            color: #2b2d42;
+            width: 100%;
+            border-radius: 28px;
+            padding: 40px 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            position: relative;
+            border: 4px solid #ffccd5;
+            transform: scale(0.97);
+            animation: cardAppear 1s forwards ease-out;
+        }
+
+        @keyframes cardAppear {
+            to { transform: scale(1); }
+        }
+
+        .letter-card::before {
+            content: '💖';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        .letter-card::after {
+            content: '🌹';
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        .card-header {
+            text-align: center;
+            border-bottom: 2px dashed #ffb3c1;
+            padding-bottom: 18px;
+            margin-bottom: 22px;
+        }
+
+        .badge-romantic {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff1e56, #ff758f);
+            color: #fff;
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .recipient-name {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #590d22;
+            line-height: 1.3;
+        }
+
+        .card-body {
+            font-size: 1.2rem;
+            line-height: 1.85;
+            color: #3d3a45;
+            text-align: justify;
+            white-space: pre-line;
+            padding: 8px 4px;
+            background: linear-gradient(transparent, rgba(255, 229, 236, 0.35));
+            border-radius: 12px;
+        }
+
+        .card-footer {
+            margin-top: 30px;
+            text-align: right;
+            border-top: 2px dashed #ffb3c1;
+            padding-top: 18px;
+        }
+
+        .sender-tag {
+            font-size: 1.05rem;
+            color: #800f2f;
+            font-weight: 600;
+        }
+
+        .sender-name {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff1e56;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .recipient-name { font-size: 1.85rem; }
+            .card-body { font-size: 1.08rem; }
+            .letter-card { padding: 30px 18px; }
+            .candles-row { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- কনফেটি ক্যানভাস -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- ভাসমান ব্যাকগ্রাউন্ড -->
+    <div class="floating-bg" id="floatingBg"></div>
+
+    <!-- 
+      ========================================================================
+      🎶 অডিও প্লেয়ার (Audio Player)
+      আপনার ভিডিওর গানটিকে MP3 বানিয়ে একই ফোল্ডারে 'birthday-song.mp3' নামে রাখুন।
+      অথবা কোনো অনলাইন লিংক থাকলে src="..." এর ভেতরে পেস্ট করুন।
+      ========================================================================
+    -->
+    <audio id="birthdaySong" loop preload="auto">
+        <source src="birthday-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- অডিও কন্ট্রোলার বাটন -->
+    <div class="music-controller" id="musicBtn" onclick="toggleMusic()">
+        <span class="music-disk">🎵</span>
+        <span id="musicText">গান চালু করুন</span>
+    </div>
+
+    <!-- ওপেনিং সারপ্রাইজ স্ক্রিন -->
+    <div class="touch-overlay" id="touchOverlay" onclick="startEverything()">
+        <div class="gift-icon">🎁</div>
+        <div class="touch-text">
+            তোমার জন্য একটি বিশেষ উপহার!<br>
+            <span style="font-size: 1.15rem; color: #fff; font-weight: 400;">
+                (উপহারটি খুলতে ও গানটি শুনতে এখানে স্পর্শ করো ✨)
+            </span>
+        </div>
+    </div>
+
+    <!-- মূল কার্ড ও কেক অংশ -->
+    <main class="main-wrapper">
+
+        <!-- কেক ও ৫টি লাল-সাদা মোমবাতি (ভিডিওর কেকের ডিজাইনের সাথে সামঞ্জস্য রেখে) -->
+        <div class="cake-stage" onclick="blowCandles()">
+            <div class="candles-row">
+                <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+                <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+                <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+                <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+                <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            </div>
+
+            <!-- রেড ভেলভেট ও রোজ কেক ভেক্টর -->
+            <svg class="cake-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="90" width="160" height="60" rx="15" fill="#800020"/>
+                <path d="M20 105C35 115 50 100 65 110C80 120 95 105 110 115C125 125 140 110 155 120C170 130 180 115 180 115V90H20V105Z" fill="#fff" opacity="0.95"/>
+                <rect x="40" y="45" width="120" height="50" rx="12" fill="#a00028"/>
+                <path d="M40 58C52 68 64 55 76 65C88 75 100 62 112 70C124 78 136 65 148 72C155 77 160 70 160 70V45H40V58Z" fill="#fff" opacity="0.95"/>
+                <!-- লাল গোলাপ ইলাস্ট্রেশন -->
+                <circle cx="60" cy="42" r="8" fill="#d90429"/>
+                <circle cx="100" cy="38" r="10" fill="#ef233c"/>
+                <circle cx="140" cy="42" r="8" fill="#d90429"/>
+                <!-- হার্ট ইলাস্ট্রেশন -->
+                <path d="M100 125 C97 120, 88 120, 88 127 C88 133, 100 142, 100 142 C100 142, 112 133, 112 127 C112 120, 103 120, 100 125 Z" fill="#ffd166"/>
+            </svg>
+
+            <span class="hint-badge" id="blowHint">🕯️ মোমবাতিতে ফুঁ দাও (ক্লিক করো)!</span>
+        </div>
+
+        <!-- 
+          ========================================================================
+          🔴 এখানে টেক্সট কাস্টমাইজ করুন (CUSTOMIZE YOUR TEXT HERE) 🔴
+          ========================================================================
+        -->
+        <article class="letter-card" id="letterCard">
+            
+            <!-- ১. যার জন্মদিন তার নাম -->
+            <header class="card-header">
+                <span class="badge-romantic">🎉 শুভ জন্মদিন | Happy Birthday 🎉</span>
+                <h1 class="recipient-name">আমার প্রিয় অর্পিতা ❤️✨</h1>
+            </header>
+
+            <!-- ২. চিঠির মূল বক্তব্য -->
+            <section class="card-body">
+আজকের এই বিশেষ দিনে তোমার জীবন ভরে উঠুক অফুরন্ত আনন্দ, নিখাদ ভালোবাসা আর সবচেয়ে মিষ্টি হাসিতে। সৃষ্টিকর্তার কাছে প্রার্থনা করি তোমার প্রতিটি স্বপ্ন যেন সত্যি হয় এবং জীবনের প্রতিটি অধ্যায় যেন রামধনুর মতো রঙিন হয়ে ওঠে।
+
+তুমি আমার জীবনের সবচেয়ে সুন্দর এবং মধুর উপহার। সবসময় এই নিষ্পাপ হাসিমুখটি ধরে রেখো। অনেক অনেক ভালোবাসি তোমায়! শুভ জন্মদিন! 🎂🌹💖✨
+            </section>
+
+            <!-- ৩. নিচে আপনার নাম / প্রেরক -->
+            <footer class="card-footer">
+                <p class="sender-tag">অনন্ত ভালোবাসায় ও আদরে,</p>
+                <span class="sender-name">তোমার প্রিয় মানুষটি 💖</span>
+            </footer>
+
+        </article>
+
+    </main>
+
+    <!-- জাভাস্ক্রিপ্ট -->
+    <script>
+        const audio = document.getElementById('birthdaySong');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicText = document.getElementById('musicText');
+        const touchOverlay = document.getElementById('touchOverlay');
+
+        function playAudio() {
+            audio.play().then(() => {
+                musicBtn.classList.remove('paused');
+                musicText.textContent = "গান বাজছে...";
+            }).catch(err => {
+                console.log("Autoplay blocked:", err);
+            });
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            musicBtn.classList.add('paused');
+            musicText.textContent = "গান বন্ধ";
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
+            }
+        }
+
+        function startEverything() {
+            touchOverlay.classList.add('hidden');
+            playAudio();
+            burstConfetti(120);
+        }
+
+        window.addEventListener('load', () => {
+            audio.play().then(() => {
+                touchOverlay.classList.add('hidden');
+                musicBtn.classList.remove('paused');
+                musicText.textContent = "গান বাজছে...";
+            }).catch(() => {});
+        });
+
+        function blowCandles() {
+            const flames = document.querySelectorAll('.flame');
+            flames.forEach(f => f.classList.add('blown'));
+
+            const hint = document.getElementById('blowHint');
+            hint.textContent = '🎉 মোমবাতি নিভেছে! তোমার সব ইচ্ছা পূরণ হোক! ✨';
+            hint.style.color = '#fff';
+            hint.style.borderColor = '#ff1e56';
+
+            burstConfetti(180);
+        }
+
+        // ভাসমান উপাদান
+        const bgItems = ['💖', '🎂', '🌹', '🎈', '🎉', '💌', '🌸', '✨', '🧁'];
+        const bgContainer = document.getElementById('floatingBg');
+
+        for (let i = 0; i < 28; i++) {
+            const item = document.createElement('div');
+            item.className = 'floating-item';
+            item.textContent = bgItems[Math.floor(Math.random() * bgItems.length)];
+            item.style.left = Math.random() * 95 + 'vw';
+            item.style.animationDuration = (8 + Math.random() * 8) + 's';
+            item.style.animationDelay = (Math.random() * 6) + 's';
+            item.style.fontSize = (1.3 + Math.random() * 1.5) + 'rem';
+            bgContainer.appendChild(item);
+        }
+
+        // কনফেটি ইঞ্জিন
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        let confetti = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const colors = ['#ff1e56', '#ffd166', '#06d6a0', '#118ab2', '#ff758f', '#ffffff'];
+
+        function ConfettiItem(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 8 + 4;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.vx = (Math.random() - 0.5) * 14;
+            this.vy = Math.random() * -14 - 4;
+            this.gravity = 0.4;
+            this.rot = Math.random() * 360;
+            this.rotSpeed = (Math.random() - 0.5) * 12;
+            this.opacity = 1;
+        }
+
+        ConfettiItem.prototype.update = function() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vy += this.gravity;
+            this.rot += this.rotSpeed;
+            this.opacity -= 0.007;
+        };
+
+        ConfettiItem.prototype.draw = function() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate((this.rot * Math.PI) / 180);
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = Math.max(0, this.opacity);
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            ctx.restore();
+        };
+
+        function burstConfetti(count) {
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight * 0.45;
+            for (let i = 0; i < count; i++) {
+                confetti.push(new ConfettiItem(cx, cy));
+            }
+        }
+
+        function animLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = confetti.length - 1; i >= 0; i--) {
+                confetti[i].update();
+                confetti[i].draw();
+                if (confetti[i].opacity <= 0 || confetti[i].y > canvas.height) {
+                    confetti.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animLoop);
+        }
+        animLoop();
+    </script>
+</body>
+</html>
