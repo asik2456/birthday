@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শুভ জন্মদিন! 🎂 Happy Birthday My Love</title>
+    <title>শুভ জন্মদিন মায়া! 🎂 Happy Birthday My Twin Sister</title>
     
     <!-- গুগল ফন্ট: বাংলা ও স্টাইলিশ ফন্ট -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,6 +154,7 @@
             color: #ffd166;
             font-weight: 700;
             text-shadow: 0 0 15px rgba(255, 209, 102, 0.5);
+            line-height: 1.5;
         }
 
         /* মেইন কন্টেইনার */
@@ -310,10 +311,13 @@
             display: inline-block;
             background: linear-gradient(45deg, #ff1e56, #ff758f);
             color: #fff;
-            padding: 5px 18px;
+            padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.95rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            max-width: 90%;
+            box-shadow: 0 4px 10px rgba(255, 30, 86, 0.3);
         }
 
         .recipient-name {
@@ -357,6 +361,7 @@
 
         @media (max-width: 600px) {
             .recipient-name { font-size: 1.85rem; }
+            .badge-romantic { font-size: 0.88rem; }
             .card-body { font-size: 1.08rem; }
             .letter-card { padding: 30px 18px; }
             .candles-row { gap: 10px; }
@@ -373,12 +378,11 @@
 
     <!-- 
       ========================================================================
-      🎶 অডিও প্লেয়ার (Audio Player)
-      আপনার ভিডিওর গানটিকে MP3 বানিয়ে একই ফোল্ডারে 'birthday-song.mp3' নামে রাখুন।
-      অথবা কোনো অনলাইন লিংক থাকলে src="..." এর ভেতরে পেস্ট করুন।
+      🎶 অডিও প্লেয়ার: আপনার গিটহাবের ডিরেক্ট লিংক ও লোকাল ফাইল দুটোই যুক্ত করা আছে
       ========================================================================
     -->
     <audio id="birthdaySong" loop preload="auto">
+        <source src="https://github.com/asik2456/birthday/raw/refs/heads/main/birthday-song.mp3" type="audio/mpeg">
         <source src="birthday-song.mp3" type="audio/mpeg">
     </audio>
 
@@ -392,9 +396,9 @@
     <div class="touch-overlay" id="touchOverlay" onclick="startEverything()">
         <div class="gift-icon">🎁</div>
         <div class="touch-text">
-           মায়া তোর জন্য একটি বিশেষ উপহার!<br>
+            মায়া, তোর জন্য একটি বিশেষ উপহার!<br>
             <span style="font-size: 1.15rem; color: #fff; font-weight: 400;">
-            (এখানে স্পর্শ করো ✨)
+                (এখানে স্পর্শ করো ✨)
             </span>
         </div>
     </div>
@@ -402,7 +406,7 @@
     <!-- মূল কার্ড ও কেক অংশ -->
     <main class="main-wrapper">
 
-        <!-- কেক ও ৫টি লাল-সাদা মোমবাতি (ভিডিওর কেকের ডিজাইনের সাথে সামঞ্জস্য রেখে) -->
+        <!-- কেক ও ৫টি লাল-সাদা মোমবাতি -->
         <div class="cake-stage" onclick="blowCandles()">
             <div class="candles-row">
                 <div class="candle"><div class="wick"></div><div class="flame"></div></div>
@@ -418,31 +422,26 @@
                 <path d="M20 105C35 115 50 100 65 110C80 120 95 105 110 115C125 125 140 110 155 120C170 130 180 115 180 115V90H20V105Z" fill="#fff" opacity="0.95"/>
                 <rect x="40" y="45" width="120" height="50" rx="12" fill="#a00028"/>
                 <path d="M40 58C52 68 64 55 76 65C88 75 100 62 112 70C124 78 136 65 148 72C155 77 160 70 160 70V45H40V58Z" fill="#fff" opacity="0.95"/>
-                <!-- লাল গোলাপ ইলাস্ট্রেশন -->
+                <!-- লাল গোলাপ -->
                 <circle cx="60" cy="42" r="8" fill="#d90429"/>
                 <circle cx="100" cy="38" r="10" fill="#ef233c"/>
                 <circle cx="140" cy="42" r="8" fill="#d90429"/>
-                <!-- হার্ট ইলাস্ট্রেশন -->
+                <!-- গোল্ডেন হার্ট -->
                 <path d="M100 125 C97 120, 88 120, 88 127 C88 133, 100 142, 100 142 C100 142, 112 133, 112 127 C112 120, 103 120, 100 125 Z" fill="#ffd166"/>
             </svg>
 
             <span class="hint-badge" id="blowHint">🕯️ মোমবাতিতে ফুঁ দাও (ক্লিক করো)!</span>
         </div>
 
-        <!-- 
-          ========================================================================
-          🔴 এখানে টেক্সট কাস্টমাইজ করুন (CUSTOMIZE YOUR TEXT HERE) 🔴
-          ========================================================================
-        -->
         <article class="letter-card" id="letterCard">
             
             <!-- ১. যার জন্মদিন তার নাম -->
             <header class="card-header">
-                <span class="badge-romantic">🎉 💗 শুভ জন্মদিন, আমার জমজ বোন 💗
-
-To my first friend, my twin, my forever bond ♡🎉</span>
-                <h1 class="recipient-name"> প্রিয় বোন,মায়া
-                ❤️✨</h1>
+                <span class="badge-romantic">
+                    🎉 💗 শুভ জন্মদিন, আমার জমজ বোন 💗<br>
+                    <small style="font-size: 0.85em; opacity: 0.95;">To my first friend, my twin, my forever bond ♡</small>
+                </span>
+                <h1 class="recipient-name">প্রিয় বোন, মায়া ❤️✨</h1>
             </header>
 
             <!-- ২. চিঠির মূল বক্তব্য -->
@@ -468,12 +467,10 @@ To my first friend, my twin, my forever bond ♡🎉</span>
 অনেক অনেক ভালোবাসা রইল তোর জন্য। সবসময় ভালো থাকিস, আর এমনই হাসিখুশি থাকিস।
             </section>
 
-            <!-- ৩. নিচে আপনার নাম / প্রেরক -->
+            <!-- ৩. নিচে প্রেরক -->
             <footer class="card-footer">
                 <p class="sender-tag">অনন্ত ভালোবাসায় ও আদরে,</p>
-                <span class="sender-name">
-
-তোর আদরের জমজ ভাই,মাহি 💖</span>
+                <span class="sender-name">তোর আদরের জমজ ভাই, মাহি 💖</span>
             </footer>
 
         </article>
@@ -529,7 +526,7 @@ To my first friend, my twin, my forever bond ♡🎉</span>
             flames.forEach(f => f.classList.add('blown'));
 
             const hint = document.getElementById('blowHint');
-            hint.textContent = '🎉 মোমবাতি নিভেছে! তোমার সব ইচ্ছা পূরণ হোক! ✨';
+            hint.textContent = '🎉 মোমবাতি নিভেছে! তোর সব ইচ্ছা পূরণ হোক মায়া! ✨';
             hint.style.color = '#fff';
             hint.style.borderColor = '#ff1e56';
 
